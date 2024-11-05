@@ -13,7 +13,7 @@ interface CategoryItemsProps {
           {items.length > 0 ? (
             items.map((item, index) => (
               <li key={index}>
-                <strong>{item.item}</strong> - {item.description} - ${item.price.toFixed(2)}
+                {item.itemName} - {item.description} - ${item.price.toFixed(2)}
               </li>
             ))
           ) : (

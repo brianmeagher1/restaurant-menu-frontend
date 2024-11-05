@@ -42,8 +42,8 @@ const AddMenuItemForm: React.FC = () => {
     try {
       console.log("Submitting menu item with payload:", payload);
       const response = await addMenuItem(payload);
-      setSuccessMessage(response.message);
-      console.log("Menu item added successfully:", response.message);
+      setSuccessMessage(String(response)); // Convert response to a string if it's not already
+      console.log("Menu item added successfully:", response);
     } catch (error) {
       setErrorMessage("Failed to add menu item. Please try again.");
       console.error("Error adding menu item:", error);

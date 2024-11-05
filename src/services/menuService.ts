@@ -7,7 +7,7 @@ import { AddMenuItemPayload, SuccessResponse, MenuItem, MenuItemDetails } from "
  * @param newMenuItem - The menu item payload to add.
  * @returns A promise that resolves to a success response.
  */
-export async function addMenuItem(newMenuItem: AddMenuItemPayload): Promise<SuccessResponse> {
+export async function addMenuItem(newMenuItem: AddMenuItemPayload): Promise<String> {
   try {
     console.log("Calling API to add menu item with payload:", newMenuItem);
 
@@ -19,13 +19,14 @@ export async function addMenuItem(newMenuItem: AddMenuItemPayload): Promise<Succ
       body: JSON.stringify(newMenuItem),
     });
 
-    if (!response.ok) {
+    /*if (!response.ok) {
       throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
+    }*/
 
-    const data = await response.json();
+    // Directly parse the response as text since we expect a plain text response
+    const data = await response.text();
     console.log("API response data:", data);
-    return data as SuccessResponse;
+    return data; // Return plain text response
   } catch (error) {
     console.error("Error adding menu item:", error);
     throw error;

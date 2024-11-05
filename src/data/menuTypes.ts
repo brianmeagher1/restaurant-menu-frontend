@@ -28,7 +28,7 @@ export interface SuccessResponse {
   message: string;
 }
 export interface MenuItemDetails {
-  item: string;
+  itemName: string;
   description: string;
   price: number;
 }

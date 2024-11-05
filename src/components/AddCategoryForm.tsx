@@ -43,14 +43,21 @@ const AddCategoryForm: React.FC = () => {
 
       // Handle success response
       setSuccessMessage(`Category '${payload.category.name}' added successfully!`);
+      console.log("ROUND 1:", response);
       setCategoryName("");
+      console.log("ROUND 2:", response);
       setDescription("");
+      console.log("ROUND 3:", response);
       setErrorMessage(null);
     } catch (error) {
       // Log the error
       console.error("Error adding category:", error);
       setErrorMessage("Failed to add category. Please try again.");
       setSuccessMessage(null);
+      //setSuccessMessage(`Category '${payload.category.name}' added successfully!`);
+      //setCategoryName("");
+      //setDescription("");
+      //setErrorMessage(null);
     }
   };
 

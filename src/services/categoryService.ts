@@ -46,17 +46,37 @@ export async function addCategory(newCategory: AddCategoryPayload): Promise<Succ
       body: JSON.stringify(newCategory), // Convert the payload to a JSON string
     });
 
-    if (!response.ok) {
+    /*if (!response.ok) {
       // Handle server error responses
       const errorText = await response.text();
       throw new Error(`Failed to add category: ${errorText}`);
+    }*/
+
+    // Attempt to parse the response as JSON first
+    const contentType = response.headers.get("content-type");
+    let responseData;
+
+    if (contentType && contentType.includes("application/json")) {
+      // If content-type is JSON, parse it as JSON
+      responseData = await response.json();
+    } else {
+      // Otherwise, assume it's plain text
+      responseData = await response.text();
+      console.warn("Received plain text response instead of JSON:", responseData);
     }
 
-    const responseData = await response.json();
-    console.log("API response received:", responseData);
+    console.log("API response data (success):", responseData);
+
     return responseData as SuccessResponse;
   } catch (error) {
-    console.error("Error adding category:", error);
+    // Log specific error details
+    if (error instanceof SyntaxError) {
+      console.error("Syntax error when parsing JSON response:", error.message);
+    } else if (error instanceof TypeError) {
+      console.error("Network error or resource unavailable:", error.message);
+    } else {
+      console.error("General error when adding category:", error.message);
+    }
     throw error;
   }
 }
